@@ -2,9 +2,15 @@
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
 */
+const entryPoint = document.querySelector('.cards')
+
 axios.get("https://api.github.com/users/nathan-saygers")
   .then(response => {
-    console.log(response.data);
+    // console.log(response.data);
+    response.data(item => {
+      const profileCard = newCard(item);
+      entryPoint.appendChild(profileCard);
+    })
   });
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
@@ -90,7 +96,6 @@ function createsCard(user){
 
   return newCard;
 }
-
 
 /* List of LS Instructors Github username's: 
   tetondan
