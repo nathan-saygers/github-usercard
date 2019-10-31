@@ -6,11 +6,9 @@ const entryPoint = document.querySelector('.cards')
 
 axios.get("https://api.github.com/users/nathan-saygers")
   .then(response => {
-    // console.log(response.data);
-    response.data(item => {
-      const profileCard = newCard(item);
-      entryPoint.appendChild(profileCard);
-    })
+    // console.log(response.data.name);
+    let axiosInfo = response.data;
+    entryPoint.appendChild(createsCard(axiosInfo));
   });
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
@@ -36,7 +34,23 @@ axios.get("https://api.github.com/users/nathan-saygers")
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['jason-glassbrook', 'ArianaShackelford', 'tygedavis', 'lyndsiWilliams', 'LizBaker'];
+followersArray.forEach(function(follower){
+  axios.get(`https://api.github.com/users/${follower}`)
+  .then(response => {
+    let axiosInfo = response.data;
+    entryPoint.appendChild(createsCard(axiosInfo));
+  })
+});
+
+// const entryPoint = document.querySelector('.cards')
+
+// axios.get("https://api.github.com/users/nathan-saygers")
+//   .then(response => {
+//     // console.log(response.data.name);
+//     let axiosInfo = response.data;
+//     entryPoint.appendChild(createsCard(axiosInfo));
+//   });
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -56,7 +70,7 @@ const followersArray = [];
   </div>
 </div>
 */
-function createsCard(user){
+function createsCard(userData){
   const newCard = document.createElement('div');
   const newImg = document.createElement('img');
   const cardInfo = document.createElement('div');
@@ -69,14 +83,14 @@ function createsCard(user){
   const followingCount = document.createElement('p');
   const newBio = document.createElement('p');
 
-  newImg.src = response.avatar_url;
-  newName.textContent = response.name;
-  newUserName.textContent = response.login;
-  location.textContent = response.location;
-  profileLink.textContent = response.html_url;
-  followerCount.textContent = response.followers;
-  followingCount.textContent = response.following;
-  newBio.textContent = response.bio;
+  newImg.src = userData.avatar_url;
+  newName.textContent = `Name: ${userData.name}`;
+  newUserName.textContent = `User Name: ${userData.login}`;
+  location.textContent = `Location: ${userData.location}`;
+  profileLink.textContent = `Profile: ${userData.html_url}`;
+  followerCount.textContent = `Followers: ${userData.followers}`;
+  followingCount.textContent = `Following: ${userData.following}`;
+  newBio.textContent = `Bio: ${userData.bio}`;
 
   newCard.classList.add('card');
   cardInfo.classList.add('card-info');
@@ -96,6 +110,8 @@ function createsCard(user){
 
   return newCard;
 }
+
+
 
 /* List of LS Instructors Github username's: 
   tetondan
