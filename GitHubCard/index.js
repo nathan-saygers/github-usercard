@@ -7,8 +7,6 @@ axios.get("https://api.github.com/users/nathan-saygers")
     console.log(response.data);
   });
 
-
-
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
    data in order to use it to build your component function 
@@ -19,6 +17,8 @@ axios.get("https://api.github.com/users/nathan-saygers")
 /* Step 4: Pass the data received from Github into your function, 
            create a new component and add it to the DOM as a child of .cards
 */
+
+
 
 /* Step 5: Now that you have your own card getting added to the DOM, either 
           follow this link in your browser https://api.github.com/users/<Your github name>/followers 
@@ -50,7 +50,46 @@ const followersArray = [];
   </div>
 </div>
 */
+function createsCard(user){
+  const newCard = document.createElement('div');
+  const newImg = document.createElement('img');
+  const cardInfo = document.createElement('div');
+  const newName = document.createElement('h3');
+  const newUserName = document.createElement('p');
+  const location = document.createElement('p');
+  const profile = document.createElement('p');
+  const profileLink = document.createElement('a');
+  const followerCount = document.createElement('p');
+  const followingCount = document.createElement('p');
+  const newBio = document.createElement('p');
 
+  newImg.src = response.avatar_url;
+  newName.textContent = response.name;
+  newUserName.textContent = response.login;
+  location.textContent = response.location;
+  profileLink.textContent = response.html_url;
+  followerCount.textContent = response.followers;
+  followingCount.textContent = response.following;
+  newBio.textContent = response.bio;
+
+  newCard.classList.add('card');
+  cardInfo.classList.add('card-info');
+  newName.classList.add('name');
+  newUserName.classList.add('username');
+
+  newCard.appendChild(newImg);
+  newCard.appendChild(cardInfo);
+  cardInfo.appendChild(newName);
+  cardInfo.appendChild(newUserName);
+  cardInfo.appendChild(location);
+  cardInfo.appendChild(profile);
+  profile.appendChild(profileLink);
+  cardInfo.appendChild(followerCount);
+  cardInfo.appendChild(followingCount);
+  cardInfo.appendChild(newBio);
+
+  return newCard;
+}
 
 
 /* List of LS Instructors Github username's: 
